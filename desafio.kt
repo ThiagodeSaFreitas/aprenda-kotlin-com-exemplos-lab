@@ -1,21 +1,42 @@
-// [Template no Kotlin Playground](https://pl.kotl.in/WcteahpyN)
+class Aluno(val nome: String, val telefone: String) {
+    fun matricular(curso: Curso) {
+        curso.adicionarAluno(this)
+    }
+}
 
-enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
+class Curso(val nome: String, val nivel: String, val cargaHoraria: Int, val conteudoEducacional: List<String>) {
+    private val alunosMatriculados = mutableListOf<Aluno>()
 
-class Usuario
+    fun adicionarAluno(aluno: Aluno) {
+        alunosMatriculados.add(aluno)
+        println("Aluno ${aluno.nome} matriculado no curso $nome")
+    }
 
-data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
-
-data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
-
-    val inscritos = mutableListOf<Usuario>()
-    
-    fun matricular(usuario: Usuario) {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+    fun exibirDetalhes() {
+        println("Nome do curso: $nome")
+        println("Nível: $nivel")
+        println("Carga horária: $cargaHoraria horas")
+        println("Conteúdo educacional:")
+        for (conteudo in conteudoEducacional) {
+            println("- $conteudo")
+        }
+        println("Alunos matriculados:")
+        for (aluno in alunosMatriculados) {
+            println("- ${aluno.nome}")
+        }
     }
 }
 
 fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+    val conteudoCurso = listOf("Introdução à Programação", "Estruturas de Dados", "Algoritmos")
+    val curso = Curso("Curso de Programação", "Iniciante", 30, conteudoCurso)
+
+    val aluno1 = Aluno("Thiago", "(85)99999-9999")
+    aluno1.matricular(curso)
+
+    val aluno2 = Aluno("Laís", "(85)98765-4321")
+    aluno2.matricular(curso)
+
+    curso.exibirDetalhes()
 }
+
